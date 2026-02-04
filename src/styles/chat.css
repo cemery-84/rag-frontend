@@ -45,7 +45,7 @@
     background-color: #ffffff;
 }
 
-.chat-input input[type="text"] {
+.ai-text-input {
     flex: 1;
     padding: 10px 14px;
     border: 1px solid #d1d5db;
@@ -53,7 +53,7 @@
     font-size: 16px;
 }
 
-.chat-input button {
+.ai-button {
     margin-left: 10px;
     padding: 10px 16px;
     background-color: #4f46e5;
@@ -64,7 +64,7 @@
     font-size: 16px;
 }
 
-.chat-input button:disabled {
+.ai-button:disabled {
     background-color: #9ca3af;
     cursor: not-allowed;
 }
@@ -77,11 +77,14 @@
 
 .nav-bar {
     padding: 10px;
-    background-color: #4f46e5;
+    background-color: #4d4a8d;
+    color: #ffffff;
 }
 
 .nav-link {
     margin-right: 10px;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .retrieval-panel {
@@ -112,4 +115,25 @@
 .chunk-content {
     margin-top: 4px;
     white-space: pre-wrap;
+}
+
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
 }

@@ -29,10 +29,12 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
                         : "Type your message..."
                 }
                 disabled={disabled}
+                className="ai-text-input"
             />
             <button
                 type="submit"
                 disabled={disabled || inputValue.trim() === ""}
+                className="ai-button"
             >
                 Send
             </button>
