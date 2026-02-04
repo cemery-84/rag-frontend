@@ -19,6 +19,7 @@ export default function ChatWindow({ messages }: ChatWindowProps) {
                     key={index}
                     role={msg.role}
                     content={msg.content}
+                    sources={msg.sources}
                 />
             ))}
 

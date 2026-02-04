@@ -10,16 +10,12 @@ export function useChatJson() {
     const sendMessage = async (text: string) => {
         setIsLoading(true);
 
-        setMessages((prevMessages) => [
-            ...prevMessages,
-            { role: "user", content: text },
-        ]);
-
         try {
             const data = await sendJsonChat(text, 5);
 
             setMessages((prevMessages) => [
                 ...prevMessages,
+                { role: "user", content: text },
                 {
                     role: "assistant",
                     content: data.answer,

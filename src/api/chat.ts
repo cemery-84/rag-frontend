@@ -15,9 +15,3 @@ export async function sendJsonChat(message: string, n_results: number) {
 
     return response.json();
 }
-
-export function createStreamChat(message: string): EventSource {
-    const url = `${API_BASE_URL}/chat/stream?message=${encodeURIComponent(message)}`;
-
-    return new EventSource(url);
-}
