@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { API_BASE_URL } from "../api/config";
-import type { Message } from "../components/MessageBubble";
+import { useState, useRef } from 'react';
+import { API_BASE_URL } from '../api/config';
+import type { Message } from '../utils/types';
 
 export function useChatStream() {
     const [messages, setMessages] = useState<Message[]>([]);
@@ -11,7 +11,7 @@ export function useChatStream() {
 
     // Keep refs to the current assistant message index and content for streaming updates
     const assistantIndexRef = useRef<number>(-1);
-    const assistantContentRef = useRef<string>("");
+    const assistantContentRef = useRef<string>('');
 
     // Ref to track if a stream is currently active to prevent multiple simultaneous streams
     const streamingRef = useRef<boolean>(false);
@@ -21,14 +21,14 @@ export function useChatStream() {
         return (
             text
                 // collapse multiple spaces
-                .replace(/ {2,}/g, " ")
+                .replace(/ {2,}/g, ' ')
                 // remove space before punctuation
-                .replace(/ \./g, ".")
-                .replace(/ ,/g, ",")
-                .replace(/ !/g, "!")
-                .replace(/ \?/g, "?")
-                .replace(/ :/g, ":")
-                .replace(/ ;/g, ";")
+                .replace(/ \./g, '.')
+                .replace(/ ,/g, ',')
+                .replace(/ !/g, '!')
+                .replace(/ \?/g, '?')
+                .replace(/ :/g, ':')
+                .replace(/ ;/g, ';')
                 // remove space before apostrophes
                 .replace(/ '\b/g, "'")
                 .trim()
@@ -45,15 +45,15 @@ export function useChatStream() {
         // Add the user message
         setMessages((prevMessages) => [
             ...prevMessages,
-            { role: "user", content: text },
+            { role: 'user', content: text },
         ]);
 
         // Add assistant placeholder and save its index for updates
         setMessages((prevMessages) => {
             const index = prevMessages.length;
             assistantIndexRef.current = index;
-            assistantContentRef.current = ""; // Reset the assistant content
-            return [...prevMessages, { role: "assistant", content: "" }];
+            assistantContentRef.current = ''; // Reset the assistant content
+            return [...prevMessages, { role: 'assistant', content: '' }];
         });
 
         const controller = new AbortController();
@@ -63,22 +63,22 @@ export function useChatStream() {
         (async () => {
             // POST the request to the streaming endpoint
             const response = await fetch(`${API_BASE_URL}/chat/stream`, {
-                method: "POST",
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ message: text, n_results: 5 }),
                 signal: controller.signal,
             });
 
             if (!response.ok) {
-                throw new Error("Failed to start streaming");
+                throw new Error('Failed to start streaming');
             }
 
             const reader = response.body!.getReader();
             const decoder = new TextDecoder();
 
-            let buffer = "";
+            let buffer = '';
 
             const flushToReact = () => {
                 // Force React to flush updates by updating state with the current messages
@@ -97,21 +97,21 @@ export function useChatStream() {
                 buffer += decoder.decode(value, { stream: true });
 
                 // Process only complete lines
-                const lines = buffer.split("\n");
+                const lines = buffer.split('\n');
 
                 // Keep the last parallel incomplete line in the buffer
-                buffer = lines.pop() || "";
+                buffer = lines.pop() || '';
 
                 for (const rawLine of lines) {
-                    const line = rawLine.replace(/\r/g, ""); // Remove carriage returns
+                    const line = rawLine.replace(/\r/g, ''); // Remove carriage returns
 
-                    if (!line.startsWith("data:")) continue;
+                    if (!line.startsWith('data:')) continue;
 
-                    const data = line.replace(/^data:\s?/, ""); // Remove "data: " prefix
+                    const data = line.replace(/^data:\s?/, ''); // Remove "data: " prefix
                     if (!data) continue;
 
                     // Handle the end of the stream
-                    if (data === "[DONE]") {
+                    if (data === '[DONE]') {
                         assistantContentRef.current = normalizeSpacing(
                             assistantContentRef.current,
                         );
@@ -122,7 +122,7 @@ export function useChatStream() {
                     }
 
                     // Skip literal "[DONE]" tokens
-                    if (data.trim() === "[DONE]") continue;
+                    if (data.trim() === '[DONE]') continue;
 
                     // Try JSON metadata
                     try {

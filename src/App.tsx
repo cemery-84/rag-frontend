@@ -1,27 +1,28 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import JsonChatPage from "./pages/JsonChatPage";
-import StreamChatPage from "./pages/StreamChatPage";
-import KnowledgeBase from "./pages/KnowledgeBase";
+import { Route, Routes } from 'react-router';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { AppLayout } from './components/layout/AppLayout';
+import { useThemeMode } from './hooks/useThemeMode';
+import { Home } from './pages/Home';
+import JsonChatPage from './pages/JsonChatPage';
+import StreamChatPage from './pages/StreamChatPage';
+import KnowledgeBase from './pages/KnowledgeBase';
+import { darkTheme } from './theme/dark-theme';
+import { lightTheme } from './theme/light-theme';
 
 export default function App() {
+    const { themeMode, toggleMode } = useThemeMode();
+
     return (
-        <BrowserRouter>
-            <div className="nav-bar">
-                <Link to="/json" className="nav-link">
-                    JSON Chat
-                </Link>
-                <Link to="/stream" className="nav-link">
-                    Stream Chat
-                </Link>
-                <Link to="/knowledge-base" className="nav-link">
-                    Knowledge Base
-                </Link>
-            </div>
-            <Routes>
-                <Route path="/json" element={<JsonChatPage />} />
-                <Route path="/stream" element={<StreamChatPage />} />
-                <Route path="/knowledge-base" element={<KnowledgeBase />} />
-            </Routes>
-        </BrowserRouter>
+        <ThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
+            <CssBaseline />
+            <AppLayout onToggleTheme={toggleMode}>
+                <Routes>
+                    <Route path="/*" element={<Home />} />
+                    <Route path="/json" element={<JsonChatPage />} />
+                    <Route path="/stream" element={<StreamChatPage />} />
+                    <Route path="/knowledge-base" element={<KnowledgeBase />} />
+                </Routes>
+            </AppLayout>
+        </ThemeProvider>
     );
 }

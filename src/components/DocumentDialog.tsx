@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { API_BASE_URL } from "../api/config";
+import { useState } from 'react';
+import { API_BASE_URL } from '../api/config';
 
 interface IProps {
     open: boolean;
@@ -8,7 +8,7 @@ interface IProps {
 
 export function DocumentDialog({ open, onClose }: IProps) {
     const [uploading, setUploading] = useState<boolean>(false);
-    const [message, setMessage] = useState<string>("");
+    const [message, setMessage] = useState<string>('');
 
     if (!open) return null;
 
@@ -17,21 +17,24 @@ export function DocumentDialog({ open, onClose }: IProps) {
         if (!file) return;
 
         setUploading(true);
-        setMessage("");
+        setMessage('');
 
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append('file', file);
 
         try {
             const response = await fetch(`${API_BASE_URL}/ingest`, {
-                method: "POST",
+                method: 'POST',
                 body: formData,
             });
 
             const json = await response.json();
-            setMessage(json.message || "File uploaded successfully!");
+            setMessage(json.message || 'File uploaded successfully!');
         } catch (error) {
-            setMessage("Error uploading file. Please try again.");
+            if (import.meta.env.DEV) {
+                console.error('Upload error:', error);
+            }
+            setMessage('Error uploading file. Please try again.');
         } finally {
             setUploading(false);
         }

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { sendJsonChat } from "../api/chat";
-import type { Message } from "../components/MessageBubble";
+import { useState } from 'react';
+import { sendJsonChat } from '../api/chat';
+import type { Message } from '../utils/types';
 
 export function useChatJson() {
     const [messages, setMessages] = useState<Message[]>([]);
@@ -15,9 +15,9 @@ export function useChatJson() {
 
             setMessages((prevMessages) => [
                 ...prevMessages,
-                { role: "user", content: text },
+                { role: 'user', content: text },
                 {
-                    role: "assistant",
+                    role: 'assistant',
                     content: data.answer,
                     sources: data.context_used.documents.map(
                         (doc: string, i: number) => ({
@@ -29,7 +29,7 @@ export function useChatJson() {
                 },
             ]);
         } catch (error) {
-            console.error("Error fetching chat response:", error);
+            console.error('Error fetching chat response:', error);
         }
 
         setIsLoading(false);

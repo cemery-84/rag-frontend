@@ -1,40 +1,50 @@
-import React, { useState } from "react";
-import type { RetrievedChunk } from "./MessageBubble";
+import { useState } from 'react';
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Box,
+    Typography,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import type { RetrievedChunk } from '../utils/types';
 
-type RetrievalPanelProps = {
+interface IProps {
     chunks: RetrievedChunk[];
-};
+}
 
-export default function RetrievalPanel({ chunks }: RetrievalPanelProps) {
+export default function RetrievalPanel({ chunks }: IProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="retrieval-panel">
-            <button onClick={() => setIsOpen(!isOpen)} className="expander">
-                {isOpen ? "▲ Hide Sources" : "▼ Show Sources"}
-            </button>
-
-            {isOpen && (
-                <div className="retrieved-chunks">
-                    {chunks.length === 0 ? (
-                        <p>No sources retrieved.</p>
-                    ) : (
-                        chunks.map((chunk, index) => (
-                            <div key={index} className="chunk">
+        <Accordion expanded={isOpen} onChange={() => setIsOpen(!isOpen)}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="subtitle2">Sources</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                {chunks.length === 0 ? (
+                    <Typography>No sources retrieved.</Typography>
+                ) : (
+                    chunks.map((chunk, index) => (
+                        <Box key={index} style={{ marginBottom: '1em' }}>
+                            <Typography variant="body2">
                                 <strong>Source:</strong> {chunk.source}
-                                {chunk.score !== undefined && (
-                                    <span className="chunk-score">
-                                        (score: {chunk.score.toFixed(3)})
-                                    </span>
-                                )}
-                                <div className="chunk-content">
-                                    {chunk.content}
-                                </div>
-                            </div>
-                        ))
-                    )}
-                </div>
-            )}
-        </div>
+                            </Typography>
+                            {chunk.score !== undefined && (
+                                <Typography
+                                    variant="caption"
+                                    color="textSecondary"
+                                >
+                                    (score: {chunk.score.toFixed(3)})
+                                </Typography>
+                            )}
+                            <Typography variant="body2" sx={{ mt: 1 }}>
+                                {chunk.content}
+                            </Typography>
+                        </Box>
+                    ))
+                )}
+            </AccordionDetails>
+        </Accordion>
     );
 }

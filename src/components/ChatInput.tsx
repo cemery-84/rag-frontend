@@ -1,43 +1,48 @@
-import React, { useState } from "react";
-
-type ChatInputProps = {
-    onSend: (message: string) => void;
-    disabled?: boolean;
-};
+import { useState } from 'react';
+import SendIcon from '@mui/icons-material/Send';
+import { IconButton, Paper, TextField } from '@mui/material';
+import type { ChatInputProps } from '../utils/types';
 
 export default function ChatInput({ onSend, disabled }: ChatInputProps) {
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState('');
 
-    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        if (inputValue.trim() === "") return;
+    const handleSend = () => {
+        if (inputValue.trim() === '') return;
 
         onSend(inputValue);
-        setInputValue("");
+        setInputValue('');
     };
 
     return (
-        <form className="chat-input" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+        <Paper
+            sx={{
+                p: 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+            }}
+        >
+            <TextField
+                fullWidth
+                multiline
+                variant="outlined"
                 placeholder={
                     disabled
-                        ? "Waiting for response..."
-                        : "Type your message..."
+                        ? 'Waiting for response...'
+                        : 'Type your message...'
                 }
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
                 disabled={disabled}
-                className="ai-text-input"
             />
-            <button
-                type="submit"
-                disabled={disabled || inputValue.trim() === ""}
-                className="ai-button"
+            <IconButton
+                color="primary"
+                onClick={handleSend}
+                disabled={disabled || inputValue.trim() === ''}
+                sx={{ ml: 2 }}
             >
-                Send
-            </button>
-        </form>
+                <SendIcon />
+            </IconButton>
+        </Paper>
     );
 }

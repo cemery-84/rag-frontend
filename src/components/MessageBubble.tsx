@@ -1,17 +1,6 @@
-import React from "react";
-import RetrievalPanel from "./RetrievalPanel";
-
-export type RetrievedChunk = {
-    source: string;
-    content: string;
-    score?: number;
-};
-
-export type Message = {
-    role: "user" | "assistant";
-    content: string;
-    sources?: RetrievedChunk[];
-};
+import { Paper, Typography } from '@mui/material';
+import type { Message } from '../utils/types';
+import RetrievalPanel from './RetrievalPanel';
 
 type MessageBubbleProps = Message;
 
@@ -20,16 +9,24 @@ export default function MessageBubble({
     content,
     sources,
 }: MessageBubbleProps) {
-    const isUser = role === "user";
+    const isUser = role === 'user';
 
     return (
-        <div
-            className={`message-bubble ${isUser ? "user-bubble" : "bot-bubble"}`}
+        <Paper
+            elevation={3}
+            sx={{
+                p: 2,
+                mb: 1,
+                maxWidth: '80%',
+                alignSelf: isUser ? 'flex-end' : 'flex-start',
+                backgroundColor: isUser ? 'primary.main' : 'grey.300',
+                color: isUser ? 'primary.contrastText' : 'text.primary',
+            }}
         >
-            <div className="message-content">{content}</div>
-            {role === "assistant" && sources && sources.length > 0 && (
+            <Typography variant="body1">{content}</Typography>
+            {role === 'assistant' && sources && sources.length > 0 && (
                 <RetrievalPanel chunks={sources} />
             )}
-        </div>
+        </Paper>
     );
 }

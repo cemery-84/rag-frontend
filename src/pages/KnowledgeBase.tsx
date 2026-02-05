@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { DocumentDialog } from "../components/DocumentDialog";
+import { useState } from 'react';
+import { DocumentDialog } from '../components/DocumentDialog';
 
 export default function KnowledgeBase() {
     const [isUploadOpen, setIsUploadOpen] = useState(false);

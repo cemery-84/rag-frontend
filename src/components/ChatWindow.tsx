@@ -1,19 +1,29 @@
-import React, { useEffect, useRef } from "react";
-import MessageBubble, { type Message } from "./MessageBubble";
+import { useEffect, useRef } from 'react';
+import { Box } from '@mui/material';
+import type { Message } from '../utils/types';
+import MessageBubble from './MessageBubble';
 
-interface ChatWindowProps {
+interface IProps {
     messages: Message[];
 }
 
-export default function ChatWindow({ messages }: ChatWindowProps) {
+export default function ChatWindow({ messages }: IProps) {
     const chatEndRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
     return (
-        <div className="chat-window">
+        <Box
+            sx={{
+                flex: 1,
+                overflowY: 'auto',
+                padding: 2,
+                backgroundColor: '#f5f5f5',
+                borderRadius: 2,
+            }}
+        >
             {messages.map((msg, index) => (
                 <MessageBubble
                     key={index}
@@ -24,6 +34,6 @@ export default function ChatWindow({ messages }: ChatWindowProps) {
             ))}
 
             <div ref={chatEndRef} />
-        </div>
+        </Box>
     );
 }
