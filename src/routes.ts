@@ -3,8 +3,9 @@ import ForumIcon from '@mui/icons-material/Forum';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SmsIcon from '@mui/icons-material/Sms';
+import type { NavItem } from './utils/types';
 
-export const NAV_ITEMS = [
+export const NAV_ITEMS: NavItem[] = [
     {
         label: 'Home',
         path: '/',

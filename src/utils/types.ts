@@ -1,3 +1,5 @@
+import type { SvgIconComponent } from '@mui/icons-material';
+
 export type RetrievedChunk = {
     source: string;
     content: string;
@@ -13,4 +15,11 @@ export type Message = {
 export type ChatInputProps = {
     onSend: (message: string) => void;
     disabled?: boolean;
+};
+
+export type NavItem = {
+    label: string;
+    path?: string;
+    icon: SvgIconComponent;
+    children?: NavItem[];
 };

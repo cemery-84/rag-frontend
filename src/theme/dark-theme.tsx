@@ -97,10 +97,9 @@ darkTheme = createTheme(darkTheme, {
         MuiAutoComplete: {
             styleOverrides: {
                 root: {
-                    '& .MuiAutocomplete-inputRoot.Mui-disabled.Mui-error .MuiOutlinedInput-notchedOutline':
-                        {
-                            border: `1px solid ${darkTheme.palette.error.main}`,
-                        },
+                    '& .MuiAutocomplete-inputRoot.Mui-disabled.Mui-error .MuiOutlinedInput-notchedOutline': {
+                        border: `1px solid ${darkTheme.palette.error.main}`,
+                    },
                 },
                 groupLabel: {
                     '& .MuiAutocomplete-option': {
@@ -199,6 +198,13 @@ darkTheme = createTheme(darkTheme, {
             styleOverrides: {
                 root: {
                     color: darkTheme.palette.text.primary,
+                },
+            },
+        },
+        MuiListSubheader: {
+            styleOverrides: {
+                root: {
+                    borderBottom: `1px solid ${darkTheme.palette.divider}`,
                 },
             },
         },

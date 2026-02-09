@@ -97,18 +97,16 @@ lightTheme = createTheme(lightTheme, {
         MuiAutoComplete: {
             styleOverrides: {
                 root: {
-                    '& .MuiAutocomplete-inputRoot.Mui-disabled.Mui-error .MuiOutlinedInput-notchedOutline':
-                        {
-                            border: `1px solid ${lightTheme.palette.error.main}`,
-                        },
+                    '& .MuiAutocomplete-inputRoot.Mui-disabled.Mui-error .MuiOutlinedInput-notchedOutline': {
+                        border: `1px solid ${lightTheme.palette.error.main}`,
+                    },
                 },
                 groupLabel: {
                     '& .MuiAutocomplete-option': {
                         '&[aria-selected="true"]': {
                             backgroundColor: lightTheme.palette.action.selected,
                             '&.Mui-focused': {
-                                backgroundColor:
-                                    lightTheme.palette.action.hover,
+                                backgroundColor: lightTheme.palette.action.hover,
                             },
                         },
                     },
@@ -118,8 +116,7 @@ lightTheme = createTheme(lightTheme, {
                         '&[aria-selected="true"]': {
                             backgroundColor: lightTheme.palette.action.selected,
                             '&.Mui-focused': {
-                                backgroundColor:
-                                    lightTheme.palette.action.hover,
+                                backgroundColor: lightTheme.palette.action.hover,
                             },
                         },
                     },
@@ -201,6 +198,13 @@ lightTheme = createTheme(lightTheme, {
             styleOverrides: {
                 root: {
                     color: lightTheme.palette.text.primary,
+                },
+            },
+        },
+        MuiListSubheader: {
+            styleOverrides: {
+                root: {
+                    borderBottom: `1px solid ${lightTheme.palette.divider}`,
                 },
             },
         },

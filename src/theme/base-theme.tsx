@@ -364,6 +364,16 @@ baseTheme = createTheme(baseTheme, {
                 },
             },
         },
+        MuiListSubheader: {
+            styleOverrides: {
+                root: {
+                    fontSize: '1rem',
+                    fontWeight: 400,
+                    lineHeight: '1.5',
+                    padding: '8px 10px',
+                },
+            },
+        },
         MuiMenu: {
             styleOverrides: {
                 paper: {
