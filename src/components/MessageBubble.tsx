@@ -4,11 +4,7 @@ import RetrievalPanel from './RetrievalPanel';
 
 type MessageBubbleProps = Message;
 
-export default function MessageBubble({
-    role,
-    content,
-    sources,
-}: MessageBubbleProps) {
+export default function MessageBubble({ role, content, sources }: MessageBubbleProps) {
     const isUser = role === 'user';
 
     return (
@@ -16,17 +12,17 @@ export default function MessageBubble({
             elevation={3}
             sx={{
                 p: 2,
-                mb: 1,
+                mb: isUser ? 2 : 4,
                 maxWidth: '80%',
-                alignSelf: isUser ? 'flex-end' : 'flex-start',
+                justifySelf: isUser ? 'flex-end' : 'flex-start',
                 backgroundColor: isUser ? 'primary.main' : 'grey.300',
                 color: isUser ? 'primary.contrastText' : 'text.primary',
             }}
         >
-            <Typography variant="body1">{content}</Typography>
-            {role === 'assistant' && sources && sources.length > 0 && (
-                <RetrievalPanel chunks={sources} />
-            )}
+            <Typography variant='body1' sx={{ mb: 2 }}>
+                {content}
+            </Typography>
+            {role === 'assistant' && sources && sources.length > 0 && <RetrievalPanel chunks={sources} />}
         </Paper>
     );
 }

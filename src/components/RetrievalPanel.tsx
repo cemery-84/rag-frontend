@@ -1,11 +1,5 @@
 import { useState } from 'react';
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Typography,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { RetrievedChunk } from '../utils/types';
 
@@ -19,7 +13,7 @@ export default function RetrievalPanel({ chunks }: IProps) {
     return (
         <Accordion expanded={isOpen} onChange={() => setIsOpen(!isOpen)}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="subtitle2">Sources</Typography>
+                <Typography variant='subtitle2'>Sources</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 {chunks.length === 0 ? (
@@ -27,18 +21,15 @@ export default function RetrievalPanel({ chunks }: IProps) {
                 ) : (
                     chunks.map((chunk, index) => (
                         <Box key={index} style={{ marginBottom: '1em' }}>
-                            <Typography variant="body2">
+                            <Typography variant='body2'>
                                 <strong>Source:</strong> {chunk.source}
                             </Typography>
                             {chunk.score !== undefined && (
-                                <Typography
-                                    variant="caption"
-                                    color="textSecondary"
-                                >
+                                <Typography variant='caption' color='textSecondary'>
                                     (score: {chunk.score.toFixed(3)})
                                 </Typography>
                             )}
-                            <Typography variant="body2" sx={{ mt: 1 }}>
+                            <Typography variant='body2' sx={{ mt: 1 }}>
                                 {chunk.content}
                             </Typography>
                         </Box>

@@ -17,20 +17,14 @@ export default function ChatWindow({ messages }: IProps) {
     return (
         <Box
             sx={{
-                flex: 1,
                 overflowY: 'auto',
                 padding: 2,
-                backgroundColor: '#f5f5f5',
-                borderRadius: 2,
+                height: '80vh',
+                borderBottom: '1px solid #ccc',
             }}
         >
             {messages.map((msg, index) => (
-                <MessageBubble
-                    key={index}
-                    role={msg.role}
-                    content={msg.content}
-                    sources={msg.sources}
-                />
+                <MessageBubble key={index} role={msg.role} content={msg.content} sources={msg.sources} />
             ))}
 
             <div ref={chatEndRef} />
