@@ -19,9 +19,9 @@ let lightTheme = deepmerge(
                 light: '#4CCFE3',
             },
             secondary: {
-                main: '#F4C27A', // warm sand
-                dark: '#D9A45A',
-                light: '#FFE1B3',
+                main: '#3BBCA7', // reef water
+                light: '#6EDDC7', // sea foam
+                dark: '#2A9B8F', // deeper reef
             },
             success: {
                 main: '#4FAF7B', // palm green
@@ -43,7 +43,7 @@ let lightTheme = deepmerge(
             divider: '#D8D5CC',
             // Custom colors
             accent: {
-                main: '#FF8F6B', // coral sunrise
+                main: '#E85C9B', // Hibiscus pink (sunset floral)
             },
         },
     }),

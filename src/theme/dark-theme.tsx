@@ -19,9 +19,9 @@ let darkTheme = deepmerge(
                 light: '#7EE4F2',
             },
             secondary: {
-                main: '#D9A45A', // warm sand by firelight
-                dark: '#B8863F',
-                light: '#F4C27A',
+                main: '#4CCFB8', // moonlit reef
+                light: '#7EE4D0', // glowing sea foam
+                dark: '#2A9B8F', // consistent deep reef
             },
             success: {
                 main: '#6BD9A0',
@@ -43,7 +43,7 @@ let darkTheme = deepmerge(
             divider: '#2A3A45',
             // Custom colors
             accent: {
-                main: '#FF7A59', // sunset coral
+                main: '#D94C8A', // hibiscus at dusk
             },
         },
     }),
