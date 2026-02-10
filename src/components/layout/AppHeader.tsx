@@ -2,7 +2,7 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeSwitcher } from '../layout/ThemeSwitcher';
-import logo from '../../assets/ce-ai-learning-logo_4.png';
+import logo from '../../assets/blue_coconut_logo.png';
 
 export function AppHeader({ onToggleTheme, onToggleNav, collapsed }: { onToggleTheme: () => void; onToggleNav: () => void; collapsed: boolean }) {
     return (
@@ -17,9 +17,6 @@ export function AppHeader({ onToggleTheme, onToggleNav, collapsed }: { onToggleT
                         display: 'flex',
                         flexDirection: 'column',
                         marginRight: 2,
-                        backgroundColor: '#bbb',
-                        padding: '2px',
-                        borderRadius: '4px',
                     }}
                 >
                     <Box component='img' src={logo} alt='Blue Coconut' sx={{ width: 50, height: 50 }} />
