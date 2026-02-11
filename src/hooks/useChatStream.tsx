@@ -1,10 +1,11 @@
 import { useState, useRef } from 'react';
 import { API_BASE_URL } from '../api/config';
+import ThinkingIndicator from '../components/ThinkingIndicator';
 import type { Message } from '../utils/types';
 
-export function useChatStream() {
-    const [messages, setMessages] = useState<Message[]>([]);
+export function useChatStream(messages: Message[], updateMessages: (updater: (prev: Message[]) => Message[]) => void) {
     const [isLoading, setIsLoading] = useState(false);
+    const [isThinking, setIsThinking] = useState(false); // New state to track if the assistant is "thinking"
 
     // Keep a ref to the AbortController so you can close it
     const abortControllerRef = useRef<AbortController | null>(null);
@@ -15,6 +16,9 @@ export function useChatStream() {
 
     // Ref to track if a stream is currently active to prevent multiple simultaneous streams
     const streamingRef = useRef<boolean>(false);
+
+    // Ref to track the first token received to manage thinking state
+    const firstTokenTimeRef = useRef<number | null>(null);
 
     // Normalize spacing AFTER the full message is assembled
     function normalizeSpacing(text: string) {
@@ -41,20 +45,17 @@ export function useChatStream() {
         streamingRef.current = true;
 
         setIsLoading(true);
+        setIsThinking(true); // Set thinking state to true when a new message is sent
 
         // Add the user message
-        setMessages((prevMessages) => [
-            ...prevMessages,
-            { role: 'user', content: text },
-        ]);
+        updateMessages((prevMessages) => [...prevMessages, { role: 'user', content: text }]);
 
         // Add assistant placeholder and save its index for updates
-        setMessages((prevMessages) => {
-            const index = prevMessages.length;
-            assistantIndexRef.current = index;
-            assistantContentRef.current = ''; // Reset the assistant content
-            return [...prevMessages, { role: 'assistant', content: '' }];
-        });
+        const placementIndex = messages.length + 1;
+        assistantIndexRef.current = placementIndex;
+        assistantContentRef.current = ''; // Reset the assistant content
+
+        updateMessages((prevMessages) => [...prevMessages, { role: 'assistant', content: <ThinkingIndicator /> }]);
 
         const controller = new AbortController();
         abortControllerRef.current = controller;
@@ -82,10 +83,9 @@ export function useChatStream() {
 
             const flushToReact = () => {
                 // Force React to flush updates by updating state with the current messages
-                setMessages((prevMessages) => {
+                updateMessages((prevMessages) => {
                     const updated = [...prevMessages];
-                    updated[assistantIndexRef.current].content =
-                        assistantContentRef.current;
+                    updated[assistantIndexRef.current].content = assistantContentRef.current;
                     return updated;
                 });
             };
@@ -112,9 +112,7 @@ export function useChatStream() {
 
                     // Handle the end of the stream
                     if (data === '[DONE]') {
-                        assistantContentRef.current = normalizeSpacing(
-                            assistantContentRef.current,
-                        );
+                        assistantContentRef.current = normalizeSpacing(assistantContentRef.current);
                         flushToReact(); // Ensure final update is flushed
                         setIsLoading(false);
                         streamingRef.current = false;
@@ -129,17 +127,15 @@ export function useChatStream() {
                         const parsed = JSON.parse(data);
 
                         if (parsed.context_used) {
-                            const { documents, metadatas, distances } =
-                                parsed.context_used;
+                            const { documents, metadatas, distances } = parsed.context_used;
 
-                            setMessages((prevMessages) => {
+                            updateMessages((prevMessages) => {
                                 const updated = [...prevMessages];
-                                updated[assistantIndexRef.current].sources =
-                                    documents.map((doc: string, i: number) => ({
-                                        source: metadatas[i].source,
-                                        content: doc,
-                                        score: distances?.[i],
-                                    }));
+                                updated[assistantIndexRef.current].sources = documents.map((doc: string, i: number) => ({
+                                    source: metadatas[i].source,
+                                    content: doc,
+                                    score: distances?.[i],
+                                }));
                                 return updated;
                             });
 
@@ -151,6 +147,23 @@ export function useChatStream() {
 
                     // Append token to the assistant content ref
                     assistantContentRef.current += data;
+                    if (isThinking) {
+                        const now = performance.now();
+                        if (!firstTokenTimeRef.current) {
+                            firstTokenTimeRef.current = now;
+                        }
+
+                        const elapsed = now - firstTokenTimeRef.current;
+
+                        // If it's been less than 150 ms since the first token, consider the assistant is "thinking"
+                        if (elapsed < 150) {
+                            setTimeout(() => {
+                                setIsThinking(false);
+                            }, 150 - elapsed);
+                        } else {
+                            setIsThinking(false);
+                        }
+                    }
 
                     // Update UI on next animation frame to batch updates and prevent too many re-renders
                     requestAnimationFrame(flushToReact);
@@ -158,9 +171,7 @@ export function useChatStream() {
             }
 
             // Final normalization
-            assistantContentRef.current = normalizeSpacing(
-                assistantContentRef.current,
-            );
+            assistantContentRef.current = normalizeSpacing(assistantContentRef.current);
             flushToReact(); // Final flush to ensure all content is updated
 
             setIsLoading(false);
@@ -178,6 +189,7 @@ export function useChatStream() {
     return {
         messages,
         isLoading,
+        isThinking,
         sendMessage,
         closeStream,
     };

@@ -1,4 +1,5 @@
 import type { SvgIconComponent } from '@mui/icons-material';
+import type React from 'react';
 
 export type RetrievedChunk = {
     source: string;
@@ -8,13 +9,22 @@ export type RetrievedChunk = {
 
 export type Message = {
     role: 'user' | 'assistant';
-    content: string;
+    content: string | React.ReactNode; // Allow content to be a string or a React node (for thinking indicator)
     sources?: RetrievedChunk[];
+    isLoading?: boolean; // Add isLoading to indicate if the assistant is still "thinking"
 };
 
 export type ChatInputProps = {
     onSend: (message: string) => void;
     disabled?: boolean;
+};
+
+export type Conversation = {
+    id: string;
+    title: string;
+    messages: Message[];
+    createdAt: number;
+    updatedAt: number;
 };
 
 export type NavItem = {

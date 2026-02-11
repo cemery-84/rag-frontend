@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import type { RetrievedChunk } from '../utils/types';
+import type { RetrievedChunk } from '../../utils/types';
 
 interface IProps {
     chunks: RetrievedChunk[];

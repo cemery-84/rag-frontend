@@ -1,11 +1,13 @@
 import { Paper, Typography } from '@mui/material';
-import type { Message } from '../utils/types';
+import type { Message } from '../../utils/types';
 import RetrievalPanel from './RetrievalPanel';
+import AnimatedMessage from '../AnimatedMessage';
 
 type MessageBubbleProps = Message;
 
 export default function MessageBubble({ role, content, sources }: MessageBubbleProps) {
     const isUser = role === 'user';
+    const isString = typeof content === 'string';
 
     return (
         <Paper
@@ -20,7 +22,7 @@ export default function MessageBubble({ role, content, sources }: MessageBubbleP
             }}
         >
             <Typography variant='body1' sx={{ mb: 2 }}>
-                {content}
+                {role === 'assistant' && isString ? <AnimatedMessage text={content} /> : content}
             </Typography>
             {role === 'assistant' && sources && sources.length > 0 && <RetrievalPanel chunks={sources} />}
         </Paper>

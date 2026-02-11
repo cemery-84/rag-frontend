@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
-import type { Message } from '../utils/types';
+import type { Message } from '../../utils/types';
 import MessageBubble from './MessageBubble';
 
 interface IProps {

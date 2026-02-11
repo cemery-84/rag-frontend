@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { API_BASE_URL } from '../api/config';
+import { API_BASE_URL } from '../../api/config';
 import { DragDropFileUpload } from './DragDropFileUpload';
 interface IProps {
     open: boolean;

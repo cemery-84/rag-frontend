@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import { Box, IconButton, TextField } from '@mui/material';
-import type { ChatInputProps } from '../utils/types';
+import type { ChatInputProps } from '../../utils/types';
 
 export default function ChatInput({ onSend, disabled }: ChatInputProps) {
     const [inputValue, setInputValue] = useState('');

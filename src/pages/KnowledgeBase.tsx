@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { DocumentDialog } from '../components/DocumentDialog';
+import { DocumentDialog } from '../components/knowledge_base/DocumentDialog';
 
 export default function KnowledgeBase() {
     const [isUploadOpen, setIsUploadOpen] = useState(false);

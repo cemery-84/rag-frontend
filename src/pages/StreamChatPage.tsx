@@ -1,15 +1,21 @@
-import { Box } from '@mui/material';
-import ChatWindow from '../components/ChatWindow';
-import ChatInput from '../components/ChatInput';
+import ConversationLayout from '../components/chat/ConversationLayout';
 import { useChatStream } from '../hooks/useChatStream';
+import { useConversations } from '../hooks/useConversations';
 
 export default function StreamChatPage() {
-    const { messages, sendMessage, isLoading } = useChatStream();
+    const { conversations, active, activeId, setActiveId, createConversation, updateActiveMessages } = useConversations();
+
+    const { sendMessage, isLoading } = useChatStream(active?.messages ?? [], updateActiveMessages);
 
     return (
-        <Box display='flex' flexDirection='column'>
-            <ChatWindow messages={messages} />
-            <ChatInput onSend={sendMessage} disabled={isLoading} />
-        </Box>
+        <ConversationLayout
+            conversations={conversations}
+            activeId={activeId}
+            onSelectConversation={setActiveId}
+            onCreateConversation={createConversation}
+            messages={active?.messages ?? []}
+            onSend={sendMessage}
+            disabled={isLoading}
+        />
     );
 }
