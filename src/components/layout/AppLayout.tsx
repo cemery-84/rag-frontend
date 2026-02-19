@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Box, Toolbar } from '@mui/material';
 import { AppHeader } from './AppHeader';
 import { SideNav } from './SideNav';
 
-export function AppLayout({ children, onToggleTheme }: { children: React.ReactNode; onToggleTheme: () => void }) {
+export function AppLayout({ onToggleTheme }: { onToggleTheme: () => void }) {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
@@ -21,7 +22,7 @@ export function AppLayout({ children, onToggleTheme }: { children: React.ReactNo
                 }}
             >
                 <Toolbar />
-                {children}
+                <Outlet />
             </Box>
         </Box>
     );

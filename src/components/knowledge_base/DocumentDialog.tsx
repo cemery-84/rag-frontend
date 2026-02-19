@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { authedFetch } from '../../api/authedFetch';
 import { API_BASE_URL } from '../../api/config';
 import { DragDropFileUpload } from './DragDropFileUpload';
 interface IProps {
@@ -58,7 +59,7 @@ export function DocumentDialog({ open, onClose }: IProps) {
 
         // Submit the formdata to the backend
         try {
-            const response = await fetch(`${API_BASE_URL}/ingest`, {
+            const response = await authedFetch(`${API_BASE_URL}/ingest`, {
                 method: 'POST',
                 body: payload,
             });

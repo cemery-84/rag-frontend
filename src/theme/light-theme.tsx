@@ -138,6 +138,30 @@ lightTheme = createTheme(lightTheme, {
                 },
             },
         },
+        MuiButton: {
+            styleOverrides: {
+                signIn: {
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #747775',
+                    color: '#1f1f1f',
+
+                    '&:disabled': {
+                        backgroundColor: '#ffffff61',
+                        borderColor: '#1f1f1f1f',
+                    },
+
+                    '&:active .gsi-material-button-state, &:focus .gsi-material-button-state': {
+                        backgroundColor: '#303030',
+                        opacity: '12%',
+                    },
+
+                    '&:hover .gsi-material-button-state': {
+                        backgroundColor: '#303030',
+                        opacity: '8%',
+                    },
+                },
+            },
+        },
         MuiCardHeader: {
             styleOverrides: {
                 title: {
@@ -164,14 +188,6 @@ lightTheme = createTheme(lightTheme, {
                     '& .MuiDialogContent-root > div': {
                         color: lightTheme.palette.background.paper,
                     },
-                },
-            },
-        },
-        MuiDivider: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: lightTheme.palette.divider,
-                    color: lightTheme.palette.divider,
                 },
             },
         },

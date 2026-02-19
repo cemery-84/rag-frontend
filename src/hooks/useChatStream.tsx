@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { authedFetch } from '../api/authedFetch';
 import { API_BASE_URL } from '../api/config';
 import ThinkingIndicator from '../components/ThinkingIndicator';
 import type { Message } from '../utils/types';
@@ -63,7 +64,7 @@ export function useChatStream(messages: Message[], updateMessages: (updater: (pr
         // Detached async function to handle streaming to prevent React re-render issues
         (async () => {
             // POST the request to the streaming endpoint
-            const response = await fetch(`${API_BASE_URL}/chat/stream`, {
+            const response = await authedFetch(`${API_BASE_URL}/chat/stream`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

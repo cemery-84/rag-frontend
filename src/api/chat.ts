@@ -1,7 +1,8 @@
+import { authedFetch } from './authedFetch';
 import { API_BASE_URL } from './config';
 
 export async function sendJsonChat(message: string, n_results: number) {
-    const response = await fetch(`${API_BASE_URL}/chat`, {
+    const response = await authedFetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

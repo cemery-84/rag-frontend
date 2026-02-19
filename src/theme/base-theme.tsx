@@ -246,6 +246,73 @@ baseTheme = createTheme(baseTheme, {
                     },
                 },
             },
+            variants: [
+                {
+                    props: { variant: 'signIn' },
+                    style: {
+                        height: '40px',
+                        borderRadius: '4px',
+                        padding: '0 12px',
+                        boxSizing: 'border-box',
+                        minWidth: 'min-content',
+                        fontFamily: "'Roboto', arial, sans-serif",
+                        fontSize: '14px',
+                        letterSpacing: '0.25px',
+                        textTransform: 'none',
+                        overflow: 'hidden',
+                        position: 'relative',
+                        whiteSpace: 'nowrap',
+                        transition: 'background-color .218s, border-color .218s, box-shadow .218s',
+                        textAlign: 'center',
+                        verticalAlign: 'middle',
+                        outline: 'none',
+
+                        '& .gsi-material-button-content-wrapper': {
+                            alignItems: 'center',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            flexWrap: 'nowrap',
+                            height: '100%',
+                            justifyContent: 'center',
+                            position: 'relative',
+                            width: '100%',
+                        },
+
+                        '& .gsi-material-button-icon': {
+                            height: '20px',
+                            minWidth: '20px',
+                            width: '20px',
+                            marginRight: '10px',
+                        },
+
+                        '& .gsi-material-button-contents': {
+                            fontFamily: "'Roboto', arial, sans-serif",
+                            fontWeight: 500,
+                            lineHeight: 'normal',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            verticalAlign: 'top',
+                        },
+
+                        '& .gsi-material-button-state': {
+                            bottom: 0,
+                            left: 0,
+                            opacity: 0,
+                            position: 'absolute',
+                            right: 0,
+                            top: 0,
+                        },
+
+                        '&:hover': {
+                            boxShadow: '0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15)',
+                        },
+
+                        '&:disabled .gsi-material-button-contents, &:disabled .gsi-material-button-icon': {
+                            opacity: 0.38,
+                        },
+                    },
+                },
+            ],
         },
         MuiCard: {
             styleOverrides: {
