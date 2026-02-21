@@ -1,0 +1,35 @@
+# Node modules (never copy these into the image)
+node_modules/
+
+# Local build output (Docker will create its own build)
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files (never bake secrets into images)
+# Note: VITE requires the .env files to be present at build time, thus we will copy them in the Dockerfile.
+# Currently the only key in the environment variables is the Firebase API Key which is not a secret.
+# If you have other environment variables that are secrets, make sure to add them to the .dockerignore file 
+# and handle them securely in your Dockerfile and deployment process.
+# .env
+# .env.local
+# .env.*.local
+
+# Editor settings
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Optional: if you use TypeScript
+*.tsbuildinfo

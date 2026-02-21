@@ -2,13 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, browserLocalPersistence, setPersistence } from 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyDnhJHHncRpQJr6PGyDDl8RpPZh1aZAG8E',
-    authDomain: 'cemery-ai-chat-auth.firebaseapp.com',
-    projectId: 'cemery-ai-chat-auth',
-    storageBucket: 'cemery-ai-chat-auth.firebasestorage.app',
-    messagingSenderId: '426873522557',
-    appId: '1:426873522557:web:78ec1aaf362b4f66a7e414',
-    measurementId: 'G-XDL99NHQJK',
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

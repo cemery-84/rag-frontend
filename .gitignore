@@ -26,3 +26,12 @@ dist-ssr
 # Optionaal VS Code settings
 .vscode/*
 !.vscode/extensions.json
+
+# Envionment files
+.env
+.env.local
+.env.*.local
+
+# Git
+.git/
+.gitignore
