@@ -16,8 +16,8 @@ pnpm-debug.log*
 # If you have other environment variables that are secrets, make sure to add them to the .dockerignore file 
 # and handle them securely in your Dockerfile and deployment process.
 # .env
-# .env.local
-# .env.*.local
+.env.local
+.env.*.local
 
 # Editor settings
 .vscode/
@@ -33,3 +33,6 @@ Thumbs.db
 
 # Optional: if you use TypeScript
 *.tsbuildinfo
+
+# Docker files
+Dockerfile
